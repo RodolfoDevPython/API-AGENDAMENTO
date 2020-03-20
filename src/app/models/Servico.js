@@ -22,5 +22,4 @@ class Servico extends Model{
 }
 
 sequelizePaginate.paginate(Servico);
-
 module.exports = Servico;

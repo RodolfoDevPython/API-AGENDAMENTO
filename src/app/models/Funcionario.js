@@ -1,4 +1,5 @@
 const { Model, DataTypes} = require("sequelize");
+const sequelizePaginate = require("sequelize-paginate");
 
 class Funcionario extends Model{
     static init(connection){
@@ -15,4 +16,5 @@ class Funcionario extends Model{
     }
 }
 
+sequelizePaginate.paginate(Funcionario);
 module.exports = Funcionario;

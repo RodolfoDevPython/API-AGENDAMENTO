@@ -30,19 +30,11 @@ module.exports = {
         if(!created) return res.status(203).json({ error: "Ja foi um Agendamento com as mesmas especificacoes" });
 
         return res.json(agendamento);
+        
     },
 
     async inserir_dados(req, res){
 
-        //Buscando o servico que está no agendamento
-        /*const servico = await Servico.findAll({
-            include: [{
-                model: Agendamento,
-                association: "servicoEscolhido",
-                where: { "id": Sequelize.col("servico_id") }
-              }]
-        });*/
-        
         const agenda = await Agendamento.sequelize.query("call PutHrChoose(1, 1, 3, 1, '2001-11-10', 1, @msg)", {
             model: Agendamento,
             mapToModel: true // pass true here if you have any mapped fields
