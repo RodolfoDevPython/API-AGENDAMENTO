@@ -12,8 +12,15 @@ module.exports = {
     },
 
     async listagem(req, res){
-        
-        const horarios = await Horario.findAll();
+        const { page = 1 } = req.query;
+
+        const option = {
+            attribute: ["hora", "id"],
+            page,
+            paginate: 6,
+            order: [['id']]
+        }
+        const horarios = await Horario.paginate(option);
 
         return res.status(200).json({ horarios });
 

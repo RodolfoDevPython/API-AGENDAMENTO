@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
+const sequelizePaginate = require("sequelize-paginate");
 
 class Horario extends Model{
 
@@ -16,4 +17,5 @@ class Horario extends Model{
     }
 }
 
+sequelizePaginate.paginate(Horario);
 module.exports = Horario;

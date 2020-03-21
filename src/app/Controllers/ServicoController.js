@@ -26,7 +26,6 @@ module.exports = {
 
         return res.json(servico);
     },
-
     async update(req, res){
 
         const { id } = req.params
@@ -40,7 +39,6 @@ module.exports = {
         return res.json({ message: "Usuario atualizado" });
 
     },
-
     async delete(req, res){
 
         const { id } = req.params;
@@ -50,6 +48,6 @@ module.exports = {
         if(servico) return res.json({ message: "Usuario deletado" });
 
         return res.status(500).json({ message: "Problema na exclusão" }).send();
-
+        
     }
 }

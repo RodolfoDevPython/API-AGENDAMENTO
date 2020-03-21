@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const sequelizePaginate = require("sequelize-paginate");
 
 class Usuario extends Model {
     static init(connection) {
@@ -36,5 +37,5 @@ class Usuario extends Model {
         this.hasMany(models.Agendamento, { foreignKey: 'usuario_id', as: 'pedidoDoUsuario' });
     }
 }
-
+sequelizePaginate.paginate(Usuario);
 module.exports = Usuario;
