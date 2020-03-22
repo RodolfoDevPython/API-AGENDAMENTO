@@ -18,6 +18,15 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      cargo_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'cargos', key: 'id'
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

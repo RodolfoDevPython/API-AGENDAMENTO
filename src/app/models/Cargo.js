@@ -12,6 +12,7 @@ class Cargo extends Model {
     }
     static associate(models) {
         this.hasMany(models.Funcionario, { foreignKey: "cargo_id", as: "Rel_funcionarios" });
+        this.hasMany(models.Servico, { foreignKey: "cargo_id", as: "Rel_servicos" });
     }
 }
 

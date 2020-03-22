@@ -13,7 +13,7 @@ class Servico extends Model{
     }   
 
     static associate(models){
-        this.belongsToMany(models.Funcionario, { foreignKey: 'servico_id', through: 'servicos_funcionarios', as: 'tarefas' } ); 
+        this.belongsTo(models.Cargo, { foreignKey: 'cargo_id', as: 'tarefas_cargos' } ); 
         this.belongsToMany(models.Promocao, { foreignKey: 'servico_id', through: 'promocoes_servicos', as: 'servicos' } ); 
         this.hasMany(models.Agendamento, { foreignKey: 'servico_id', as: 'servicoEscolhido' })
     }   

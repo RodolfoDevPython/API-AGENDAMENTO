@@ -8,6 +8,7 @@ class Usuario extends Model {
         super.init({
             nome: DataTypes.STRING,
             endereco: DataTypes.STRING,
+            email: DataTypes.STRING,
             telefone: DataTypes.STRING,
             senha: DataTypes.STRING,
             senha_pre_hash: DataTypes.VIRTUAL,

@@ -11,7 +11,6 @@ class Funcionario extends Model{
     }
     static associate(models){
         this.belongsTo(models.Cargo, { foreignKey: "cargo_id", as: "Rel_cargos"})
-        this.belongsToMany(models.Servico, { foreignKey: 'funcionario_id', through: 'servicos_funcionarios', as: 'prestador' } ); 
         this.hasMany(models.Agendamento, { foreignKey: 'funcionario_id', as: 'ativosDaTarefa' });
     }
 }

@@ -6,7 +6,7 @@ module.exports = {
         const { page = 1 }  = req.query;
 
         const option = {
-            attributes: ["nome", "endereco", "telefone", "email"],
+            attributes: ["id", "nome", "endereco", "telefone", "email"],
             page,
             paginate: 10,
             order: [['id']],
@@ -47,16 +47,12 @@ module.exports = {
         const { id } = req.params;
         const { nome, endereco, telefone, email } = req.body;
 
-        const usuario = await Usuario.findByPk(id);
+        const [ number, user ] = await Usuario.update({ nome, endereco, telefone, email }, { where : { id } });
 
-        if (usuario) {
+        if (number == 0) return res.json({ warning: "Problema na Alteração " });
 
-            const user = await Usuario.update({ nome, endereco, telefone, email }, { where : { id }});
-
-            if (!user) return res.json({ warning: "Problema na Alteração " });
-
-            return res.json({ warning: "Alterado com Sucesso" });
-        } 
+        return res.json({ message: "Alterado com Sucesso" });
+    
     },
     async login(req, res){
 

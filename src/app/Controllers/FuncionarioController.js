@@ -5,19 +5,21 @@ const Funcionario = require("../models/Funcionario");
 module.exports = {
     //Listagem por um cargo  especifico
     async listagem(req, res){
-
-        const { id } = req.params; //id do cargo
+        const { id } = req.params;
         const { page = 1} = req.query;
         
         /*const cargo = await Cargo.findByPk(id , {
             include: { association: 'Rel_funcionarios' }
         });*/
         const option = {
-            attributes: [ "nome"],
+            attributes: ["nome"],
             page,
             paginate: 4,
             order: [ ["id"] ],
-            include: { association: 'Rel_cargos' }
+            include: [
+                { association: 'Rel_cargos' },
+                { model: Cargo ,as: 'Rel_servicos' }
+            ]
         }
 
         const funcionario = await Funcionario.paginate(option);
@@ -25,18 +27,16 @@ module.exports = {
         //if(!cargo) return res.status(400).json( {error: "Cargo not found!"} );
 
         return res.json(funcionario);
-
     },
     async inserir(req, res){
-        
-        const { id } = req.params;
         //id_cargo
-
+        const { id } = req.params;
+        
         const { nome } = req.body;
 
         const cargo = await Cargo.findByPk(id);
 
-        if(!cargo) return res.status(400).json({ error: 'Cargo not found!'});
+        if (!cargo) return res.status(400).json({ warning: 'Cargo not found!'});
 
         const funcionario = await Funcionario.create({
             nome,
@@ -44,7 +44,6 @@ module.exports = {
         });
 
         return res.json(funcionario);
-
     },
     async update(req, res){
 
@@ -58,7 +57,6 @@ module.exports = {
         if (number == 0) return res.json({ warning: "Ocorreu um erro na alteração" });
 
         return res.status(200).json("Funcionario Atualizado");
-        
     },
     async delete(req, res){
 
@@ -69,9 +67,8 @@ module.exports = {
         if (funcionario) return res.status(200).json({ message: "Funcionario Deletado!"});
         
         return res.json({ warning: "Não foi possível deletar"});
-
     },
-    async inserir_servico_funcionario(req, res){
+    /*async inserir_servico_funcionario(req, res){
 
         const { servico_id} = req.params;
         const { cargo_id } = req.body;
@@ -93,17 +90,24 @@ module.exports = {
         return res.json(funcionario);
 
     },
-
     async lista_ser_func(req, res){
 
-        const { funcionario_id } = req.params;
+        //const { funcionario_id } = req.params;
+        const { page = 1 } = req.query;
 
-        const id = funcionario_id;
+        //const id = funcionario_id;
 
-        const funcionario = await Funcionario.findByPk(id)
+        const option = {
+            page,
+            order: [['id']],
+            include: { association: 'prestador' }
+        };
+
+        const funcionario = await Funcionario.paginate(option)
         
         //const servico = await Servico.getTarefas(funcionario)
         //Ainda não está definido está feacture  
-    },
+        return res.json(funcionario);
+    },*/
     
 }
